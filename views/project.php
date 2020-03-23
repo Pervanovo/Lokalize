@@ -240,7 +240,7 @@
                 </div>
 
                 <div class="uk-form-row">
-                    <field-boolean bind="$key.multiline" label="@lang('Multiline')"></field-boolean>
+                    <field-boolean bind="$key.multiline" label="@lang('Multiline')" onchange="{ changeMultiline }"></field-boolean>
                 </div>
 
 
@@ -453,7 +453,7 @@
             this.$key = {
                 name: '',
                 info: '',
-                multiline: false
+                multiline: App.session.get('lokalize.new.multiline', false)
             };
 
             setTimeout(function() {
@@ -545,6 +545,10 @@
             this.keys = Object.keys(this.project.keys).sort();
 
             this.$key = null;
+        }
+
+        changeMultiline(e) {
+            App.session.set('lokalize.new.multiline', e.target.checked);
         }
 
         suggestTranslation(e) {
